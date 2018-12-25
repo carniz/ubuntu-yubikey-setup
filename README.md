@@ -208,7 +208,7 @@ to "sufficient" instead of "required".
 declare -A key_map
 key_map["<client id 1>"]="secret key 1>"
 key_map["<client id 2>"]="secret key 2>"
-REQUIRED_OR_SUFFICIENT="sufficient"
+REQUIRED_OR_SUFFICIENT="required"
 FILE="/etc/pam.d/sshd"
 for key in ${!key_map[@]}; do
     secret=${key_map[${key}]}
