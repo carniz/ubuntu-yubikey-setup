@@ -93,8 +93,8 @@ if [ -z "$(lsusb | grep Yubico)" ] ; then
 
   if [ "${always_lock}" == "false" ]; then
     for i in {1..5}; do
-	    sleep 1;
-	    echo $(( $i*20 ));
+      sleep 1;
+      echo $(( $i*20 ));
     done | zenity --title "Yubikey removed" --text "Locking the screen\n(Press Escape to cancel)" --width 400 --progress --no-cancel --auto-close
     answer=$?
   fi
