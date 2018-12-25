@@ -6,7 +6,7 @@ This is a guide for configuring an Ubuntu 18.04-based distribution (such as elem
 * Yubikey challenge-response mode for SUDO
 * Yubikey for SSH authentication
 
-It assumes that you bought a 2-pack of Yubikeys, if you only have one Yubikey you can skip the steps for the second key.
+It assumes that you bought a 2-pack of Yubikeys (version 5 NFC), if you only have one Yubikey you can skip the steps for the second key.
 
 ### Install required packages
 ```
