@@ -10,8 +10,9 @@ It assumes that you bought a 2-pack of Yubikeys (version 5 NFC), if you only hav
 
 ### Install required packages
 ```
+sudo apt install software-properties-common  # provides add-apt-repository
 sudo add-apt-repository ppa:yubico/stable && sudo apt-get update
-sudo apt-get install libpam-yubico yubikey-manager
+sudo apt install libpam-yubico yubikey-manager
 ```
 
 ### For each yubikey:
@@ -31,7 +32,7 @@ echo "auth    required   pam_yubico.so mode=challenge-response" | sudo tee -a /e
 
 Install the `yubikey-luks` package:
 ```
-sudo apt-get install yubikey-luks
+sudo apt install yubikey-luks
 ```
 List key slots for /dev/sda3 (only slot 0 should be used by default)
 ```
@@ -54,7 +55,7 @@ sudo cryptsetup -q luksKillSlot /dev/sda3 0
 ### Lock the screen when yubikey is removed
 Install the `finger` package:
 ```
-sudo apt-get install finger
+sudo apt install finger
 ```
 Create the `yubikey-removed-script`:
 ```
@@ -174,9 +175,10 @@ echo "PKCS11Provider /usr/lib/x86_64-linux-gnu/opensc-pkcs11.so" | sudo tee -a /
 ## On the server (Ubuntu)
 Install required packages:
 ```
+sudo apt install software-properties-common  # provides add-apt-repository
 sudo add-apt-repository ppa:yubico/stable -y
-sudo apt-get update
-sudo apt-get install libpam-yubico -y
+sudo apt update
+sudo apt install libpam-yubico -y
 ```
 Enable `ChallengeResponseAuthentication` and PAM usage in `/etc/ssh/sshd_config`:
 ```
