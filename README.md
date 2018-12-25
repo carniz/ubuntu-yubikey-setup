@@ -2,7 +2,7 @@
 
 This is a guide for configuring an Ubuntu 18.04-based distribution (such as elementaryOS 5.0 "Juno") with:
 * Full disk Yubikey-backed encryption (using challenge-response mode)
-* System wide Yubikey login (graphical/non-graphical)
+* System wide Yubikey login (graphical lightdm + non-graphical TTYs)
 * Yubikey challenge-response mode for SUDO
 * Yubikey for SSH authentication
 
