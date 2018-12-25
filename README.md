@@ -108,6 +108,12 @@ fi
 
 EOF
 ```
+
+Make it executable:
+```
+sudo chmod +x /usr/local/bin/yubikey-removed-script
+```
+
 Create a udev rule to trigger the `yubikey-removed-script`:
 ```
 cat <<EOF | sudo tee /etc/udev/rules.d/yubikey-screenlock.rules
