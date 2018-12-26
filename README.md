@@ -83,7 +83,7 @@ sudo apt install finger
 ```
 Create the `yubikey-removed-script`:
 ```
-cat <<EOF | sudo tee /usr/local/bin/yubikey-removed-script
+cat << 'EOF' | sudo tee /usr/local/bin/yubikey-removed-script
 #!/usr/bin/env bash
 # Locks the screen if a Yubikey is not plugged in
 
