@@ -6,9 +6,7 @@ This is a guide for configuring an Ubuntu 18.04-based distribution (such as elem
 * Yubikey challenge-response mode for SUDO
 * Yubikey for SSH authentication
 
-## Prerequisites
-- An existing installation of an Ubuntu 18.04-based distro with full-disk encryption
-- A 2-pack of Yubikeys (version 5 NFC), if you only have one Yubikey you can skip the steps for the second key.
+It assumes that you bought a 2-pack of Yubikeys (version 5 NFC), if you only have one Yubikey you can skip the steps for the second key.
 
 ### Install required packages
 ```
@@ -42,23 +40,7 @@ Install the `yubikey-luks` package:
 ```
 sudo apt install yubikey-luks
 ```
-If you are unsure of which device that contains your LUKS partition, run `lsblk`. In the below example, the device is `/dev/sda3`:
-```
-$ lsblk
-NAME                                        MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINT
-sda                                           8:0    1 119,3G  0 disk
-├─sda1                                        8:1    1   512M  0 part  /boot/efi
-├─sda2                                        8:2    1   732M  0 part  /boot
-└─sda3                                        8:3    1   118G  0 part
-  └─sdb3_crypt                              253:0    0   118G  0 crypt
-    ├─elementary--vg-root                   253:1    0   117G  0 lvm   /
-    └─elementary--vg-swap_1                 253:2    0   976M  0 lvm   [SWAP]
-nvme0n1                                     259:0    0 953,9G  0 disk
-├─nvme0n1p1                                 259:1    0   512M  0 part
-├─nvme0n1p2                                 259:2    0 937,5G  0 part
-└─nvme0n1p3                                 259:3    0  15,9G  0 part
-```
-List key slots for your LUKS device (only slot 0 should be used by default)
+List key slots for /dev/sda3 (only slot 0 should be used by default)
 ```
 sudo cryptsetup luksDump /dev/sda3
 ```
