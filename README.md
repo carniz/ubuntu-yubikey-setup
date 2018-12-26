@@ -149,7 +149,7 @@ EOF
 ## U2F setup
 Download https://raw.githubusercontent.com/Yubico/libu2f-host/master/70-u2f.rules and put it in `/etc/udev/rules.d/70-u2f.rules`. Reboot your computer and then head over to https://demo.yubico.com/u2f and follow the instructions. After the process, your browser will be capable to using U2F authentication with a number of services.
 
-For Github, you can add your Yubikeys as U2F devices at https://github.com/settings/two_factor_authentication/configure after you first have enabled generic 2-factor authentication using a mobile app such as Google Authenticator.
+For Github, you can add your Yubikeys as U2F devices at https://github.com/settings/two_factor_authentication/configure after you first have enabled generic 2-factor authentication using a mobile app such as Google Authenticator, see https://help.github.com/articles/configuring-two-factor-authentication/#configuring-two-factor-authentication-using-fido-u2f
 
 ## GPG/SSH setup
 
