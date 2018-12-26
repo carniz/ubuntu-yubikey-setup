@@ -114,9 +114,9 @@ if [ -z "$(lsusb | grep Yubico)" ] ; then
       fi
   done
 
-  always_lock=false
+  enable_timer=true
 
-  if [ "${always_lock}" == "false" ]; then
+  if [ "${enable_timer}" == "true" ]; then
     for i in {1..5}; do
       sleep 1;
       echo $(( $i*20 ));
@@ -124,7 +124,7 @@ if [ -z "$(lsusb | grep Yubico)" ] ; then
     answer=$?
   fi
 
-  if [[ "${always_lock}" == "true" ]] || [[ ${answer} -eq 0 ]]; then
+  if [[ "${enable_timer}" != "true" ]] || [[ ${answer} -eq 0 ]]; then
     export grep -z DBUS_SESSION_BUS_ADDRESS /proc/$(pidof light-locker)/environ
     logger "YubiKey Removed - Locking Workstation"
     su $user -c "/usr/bin/light-locker-command -l"
