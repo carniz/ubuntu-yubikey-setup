@@ -1,9 +1,10 @@
 # ubuntu-yubikey-setup
 
 This is a guide for configuring an Ubuntu 18.04-based distribution (such as elementaryOS 5.0 "Juno") with:
-* Full disk Yubikey-backed encryption (using challenge-response mode)
+* Yubikey-backed full disk encryption (using challenge-response mode)
 * System wide Yubikey login (graphical lightdm + non-graphical TTYs)
 * Yubikey challenge-response mode for SUDO
+* FIDO U2F authentication
 * Yubikey for SSH authentication
 
 ## Prerequisites
@@ -146,7 +147,7 @@ ACTION=="remove", ENV{ID_VENDOR}=="Yubico", RUN+="/usr/local/bin/yubikey-removed
 EOF
 ```
 
-## U2F setup
+## FIDO U2F setup
 Download https://raw.githubusercontent.com/Yubico/libu2f-host/master/70-u2f.rules and put it in `/etc/udev/rules.d/70-u2f.rules`. Reboot your computer and then head over to https://demo.yubico.com/u2f and follow the instructions. After the process, your browser will be capable of using U2F authentication with a number of services.
 
 For Github, you can add your Yubikeys as U2F devices at https://github.com/settings/two_factor_authentication/configure after you first have enabled generic 2-factor authentication using a mobile app such as Google Authenticator, see https://help.github.com/articles/configuring-two-factor-authentication/#configuring-two-factor-authentication-using-fido-u2f
