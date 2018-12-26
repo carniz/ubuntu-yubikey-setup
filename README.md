@@ -16,8 +16,14 @@ sudo apt install libpam-yubico yubikey-manager
 ```
 
 ### For each yubikey:
+If you require that the Yubikey must be touched for each challenge-response operation, pass `--touch` to `ykman otp chalresp`. This greatly enhances the security of the challenge-response mode since it needs a physical confirmation.
 ```
-ykman otp chalresp -g 2
+ykman otp chalresp --touch --generate 2
+ykpamcfg -2
+```
+If you on the other hand want the key to automatically send a response to each challenge, omit the `--touch`. **Note that this is less secure since a malicious script could get a response from the key without your permission.**
+```
+ykman otp chalresp --generate 2
 ykpamcfg -2
 ```
 
