@@ -1,6 +1,6 @@
 # ubuntu-yubikey-setup
 
-This is a guide for configuring an Ubuntu 18.04-based distribution (such as elementaryOS 5.0 "Juno") with:
+This is a guide for configuring an Ubuntu 18.04/20.04-based distribution (such as elementaryOS 5.0 "Juno" / elementaryOS 6.0 "Odin") with:
 * Yubikey-backed full disk encryption (using challenge-response mode)
 * System wide Yubikey login (graphical lightdm + non-graphical TTYs)
 * Yubikey challenge-response mode for SUDO
@@ -8,18 +8,19 @@ This is a guide for configuring an Ubuntu 18.04-based distribution (such as elem
 * Yubikey for SSH authentication
 
 ## Prerequisites
-- An existing installation of an Ubuntu 18.04-based distro with full-disk encryption
+- An existing installation of an Ubuntu 18.04/20.04-based distro with full-disk encryption
 - A 2-pack of Yubikeys (version 5 NFC), if you only have one Yubikey you can skip the steps for the second key.
 
-### Install required packages
+### Add the Yubico APT repository (NOTE: not needed for Ubuntu 20.04)
 ```
 sudo apt install software-properties-common  # provides add-apt-repository
 sudo add-apt-repository ppa:yubico/stable && sudo apt-get update
-sudo apt install libpam-yubico yubikey-manager
 ```
 
-**Update for Ubuntu 20.04:**
-The default Ubuntu repositories now contain `libpam-yubico` and `yubikey-manager`, so the first 2 lines above can be skipped - just run `sudo apt install libpam-yubico yubikey-manager`
+### Install required packages
+```
+sudo apt install libpam-yubico yubikey-manager
+```
 
 ### For each yubikey:
 If you require that the Yubikey must be touched for each challenge-response operation, pass `--touch` to `ykman otp chalresp`. This greatly enhances the security of the challenge-response mode since it needs a physical confirmation.
@@ -80,9 +81,10 @@ sudo cryptsetup -q luksKillSlot /dev/sda3 0
 ```
 
 **Update for Ubuntu 20.04:**
-The Yubikey won't get used for unlocking the disk with elementaryOS 6 / Ubuntu 20.04 unless you update /etc/crypttab:
+The Yubikey won't get used for unlocking the disk with Ubuntu 20.04 / elementaryOS 6 unless you first run the below:
 ```
 sudo sed -i 's|none luks|none luks,keyscript=/usr/share/yubikey-luks/ykluks-keyscript,discard|' /etc/crypttab
+sudo update-initramfs -u
 ```
 
 ### Lock the screen when yubikey is removed
