@@ -18,6 +18,9 @@ sudo add-apt-repository ppa:yubico/stable && sudo apt-get update
 sudo apt install libpam-yubico yubikey-manager
 ```
 
+**Update for Ubuntu 20.04:**
+The default Ubuntu repositories now contain `libpam-yubico` and `yubikey-manager`, so the first 2 lines above can be skipped - just run `sudo apt install libpam-yubico yubikey-manager`
+
 ### For each yubikey:
 If you require that the Yubikey must be touched for each challenge-response operation, pass `--touch` to `ykman otp chalresp`. This greatly enhances the security of the challenge-response mode since it needs a physical confirmation.
 ```
@@ -76,6 +79,11 @@ Now restart your computer. Once verified that the yubikey can be used to unlock 
 sudo cryptsetup -q luksKillSlot /dev/sda3 0
 ```
 
+**Update for Ubuntu 20.04:**
+The Yubikey won't get used for unlocking the disk with elementaryOS 6 / Ubuntu 20.04 unless you update /etc/crypttab:
+```
+sudo sed -i 's|none luks|none luks,keyscript=/usr/share/yubikey-luks/ykluks-keyscript,discard|' /etc/crypttab
+```
 
 ### Lock the screen when yubikey is removed
 Install the `finger` package:
@@ -257,3 +265,6 @@ https://dgunter.com/2018/09/30/securing-linux-full-disk-encryption-with-a-multi-
 https://blog.programster.org/yubikey-cheatsheet
 
 https://www.linode.com/docs/security/authentication/how-to-use-yubikey-for-two-factor-ssh-authentication/
+
+https://newbedev.com/yubikey-two-factor-authentication-full-disk-encryption-via-luks
+
