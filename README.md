@@ -75,6 +75,8 @@ Configure slot 2 for yubikey number 2:
 ```
 sudo yubikey-luks-enroll -d /dev/sda3 -s 2
 ```
+*Hint: You will be asked to enter the `yubikey challenge password`. This is a password you can choose, which will be used for unlocking the yubikey prior to unlocking the FDE.*  
+
 Now restart your computer. Once verified that the yubikey can be used to unlock the disk, remove the default slot for the static password (slot 0):
 ```
 sudo cryptsetup -q luksKillSlot /dev/sda3 0
