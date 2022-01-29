@@ -92,8 +92,13 @@ sudo update-initramfs -u
 ### Lock the screen when yubikey is removed
 Install the `finger` package:
 ```
-sudo apt install finger
+sudo apt install -y finger
 ```
+**NB: For elementaryOS 6.x you'll also need to install gnome-screensaver:**
+```
+sudo apt install -y gnome-screensaver
+```
+
 Create the `yubikey-removed-script`:
 ```
 cat << 'EOF' | sudo tee /usr/local/bin/yubikey-removed-script
@@ -137,11 +142,19 @@ if [ -z "$(lsusb | grep Yubico)" ] ; then
     answer=$?
   fi
 
-  if [[ "${enable_timer}" != "true" ]] || [[ ${answer} -eq 0 ]]; then
-    export grep -z DBUS_SESSION_BUS_ADDRESS /proc/$(pidof light-locker)/environ
-    logger "YubiKey Removed - Locking Workstation"
-    su $user -c "/usr/bin/light-locker-command -l"
+  LOCKER="light-locker"
+  LOCKER_COMMAND="${LOCKER}-command"
+  if [ -z "$(which ${LOCKER_COMMAND})" ]; then
+    LOCKER="gnome-screensaver"
+    LOCKER_COMMAND="${LOCKER}-command"
   fi
+
+  if [[ "${enable_timer}" != "true" ]] || [[ ${answer} -eq 0 ]]; then
+    export grep -z DBUS_SESSION_BUS_ADDRESS /proc/$(pidof ${LOCKER})/environ
+    logger "YubiKey Removed - Locking Workstation"
+    su $user -c "/usr/bin/${LOCKER_COMMAND} -l"
+  fi
+
 fi
 
 EOF
